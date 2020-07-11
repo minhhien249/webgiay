@@ -19,28 +19,28 @@
     </div>
 </div>
 <!-- page main wrapper start -->
-        <div class="shop-main-wrapper section-padding">
-            <div class="container">
-                <div class="row">
-                    <!-- sidebar area start -->
-                    <div class="col-lg-3 order-2 order-lg-1">
-                        <aside class="sidebar-wrapper">
-                            <!-- single sidebar start -->
-                            <div class="sidebar-single">
-                                <form action="{{url('danh-muc/'.$cate->slug.'/filter')}}" method="GET">
+<div class="shop-main-wrapper section-padding">
+    <div class="container">
+        <div class="row">
+            <!-- sidebar area start -->
+            <div class="col-lg-3 order-2 order-lg-1">
+                <aside class="sidebar-wrapper">
+                    <!-- single sidebar start -->
+                    <div class="sidebar-single">
+                        <form action="{{url('danh-muc/'.$cate->slug.'/filter')}}" method="GET">
                             <h6 class="sidebar-title">Hãng</h6>
-                                <div class="sidebar-body">
-                                    <ul class="checkbox-container search-list">
-                                        @foreach($brandsFilter as $product)
-                                        <li>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="brandCheck{{$product->brand_id}}" name="brand_id[]" value="{{$product->brand_id}}">
-                                                <label class="custom-control-label" id="brandCheck{{$product->brand_id}}" for="brandCheck{{$product->brand_id}}">{{$product->name}}</label>
-                                            </div>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                            <h6 class="sidebar-title pt-4">Giá</h6>
+                            <div class="sidebar-body">
+                                <ul class="checkbox-container search-list">
+                                    @foreach($brandsFilter as $product)
+                                    <li>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="brandCheck{{$product->brand_id}}" name="brand_id[]" value="{{$product->brand_id}}">
+                                            <label class="custom-control-label" id="brandCheck{{$product->brand_id}}" for="brandCheck{{$product->brand_id}}">{{$product->name}}</label>
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                                <h6 class="sidebar-title pt-4">Giá</h6>
                                 <div class="sidebar-body">
                                     <ul class="checkbox-container search-list">
                                         <li>
@@ -48,50 +48,44 @@
                                                 <input type="radio" class="custom-control-input" id="priceCheck1" name="price" value="0-3000000">
                                                 <label class="custom-control-label" id="priceCheck1" for="priceCheck1">Dưới 3tr</label>
                                             </div>
-                                        <li>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="radio" class="custom-control-input" id="priceCheck2" name="price" value="3000000-6000000">
-                                                <label class="custom-control-label" id="priceCheck1" for="priceCheck2">Từ 3tr - 6tr</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="radio" class="custom-control-input" id="priceCheck3" name="price" value="6000000-9000000">
-                                                <label class="custom-control-label" id="priceCheck1" for="priceCheck3">Từ 6tr - 9tr</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="radio" class="custom-control-input" id="priceCheck5" name="price" value="9000000">
-                                                <label class="custom-control-label" id="priceCheck1" for="priceCheck5">Trên 9tr</label>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-
-                                </div>
-                            </div>
-                            <!-- single sidebar start -->
-                            <div class="sidebar-banner">
-                                <div class="banner-thumb">
-                                    <a href="#">
-                                        <img src="assets/img/banner/sidebar-banner.jpg" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- single sidebar end -->
-                        </aside>
-                    </div>
-                    <!-- sidebar area end -->
-                    <!-- shop main wrapper start -->
-                    <div class="col-lg-9 order-1 order-lg-2">
-                        <div class="shop-product-wrapper">
-                            <!-- shop product top wrap start -->
-                            <div class="shop-top-bar">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-7 col-md-6 order-2 order-md-1">
+                                            <li>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="radio" class="custom-control-input" id="priceCheck2" name="price" value="3000000-6000000">
+                                                    <label class="custom-control-label" id="priceCheck1" for="priceCheck2">Từ 3tr - 6tr</label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="radio" class="custom-control-input" id="priceCheck3" name="price" value="6000000-9000000">
+                                                    <label class="custom-control-label" id="priceCheck1" for="priceCheck3">Từ 6tr - 9tr</label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="radio" class="custom-control-input" id="priceCheck5" name="price" value="9000000">
+                                                    <label class="custom-control-label" id="priceCheck1" for="priceCheck5">Trên 9tr</label>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="col-lg-5 col-md-6 order-1 order-md-2">
+                                    <button type="submit" class="btn btn-sqr mt-3">Tìm</button>
+                                </div>
+                                <!-- single sidebar start -->
+                            </form>
+                        </div>
+                                <!-- single sidebar end -->
+                            </aside>
+                        </div>
+                        <!-- sidebar area end -->
+                        <!-- shop main wrapper start -->
+                        <div class="col-lg-9 order-1 order-lg-2">
+                            <div class="shop-product-wrapper">
+                                <!-- shop product top wrap start -->
+                                <div class="shop-top-bar">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-7 col-md-6 order-2 order-md-1">
+                                        </div>
+                                        <div class="col-lg-5 col-md-6 order-1 order-md-2">
                                         <!-- <div class="top-bar-right">
                                             <div class="product-short">
                                                 <p>Sắp xếp : </p>
@@ -107,85 +101,66 @@
                             </div>
                             <!-- shop product top wrap start -->
                             <!-- product item list wrapper start -->
-                            <div class="shop-product-wrap grid-view row mbn-30" id="productData">
-                                <!-- product single item start -->
-
-                                @foreach ($products as $product)
-                                <div class="col-md-4 col-sm-6">
-                                    <!-- product grid start -->
-                                    <div class="product-item">
-                                        <div class="product-thumb">
-                                        <a href="{{route('shop.product',['slug'=>$product->slug,'id'=>$product->id])}}">
-                                            <img src="{{asset($product->image)}}" alt="product thumb">
-                                            </a>
-                                            <div class="product-label">
-                                                <span>new</span>
-                                            </div>
-                                            <div class="discount-label">
-                                                <span>-10% Off</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-content" style="height: 200px">
-                                            <div class="product-caption">
-                                                <h6 class="product-name">
-                                                <a href="{{route('shop.product',['slug'=>$product->slug,'id'=>$product->id])}}">{{$product->name}}</a>
-                                                </h6>
-                                                <div class="price-box">
-                                                <span class="price-old"><del>{{ number_format($product->price,0,",",".") }} <span style="text-transform: lowercase">đ</del></span>
-                                                    <span class="price-regular">{{ number_format($product->sale,0,",",".") }} <span style="text-transform: lowercase">đ</span>
+                            <div id="productData">
+                                <div class="shop-product-wrap grid-view row mbn-30" >
+                                    <!-- product single item start -->
+                                    @foreach ($products as $product)
+                                    <div class="col-md-4 col-sm-6">
+                                        <!-- product grid start -->
+                                        <div class="product-item">
+                                            <div class="product-thumb">
+                                                <a href="{{route('shop.product',['slug'=>$product->slug,'id'=>$product->id])}}">
+                                                    <img src="{{asset($product->image)}}" alt="product thumb">
+                                                </a>
+                                                @if($now->diffInDays($product->created_at) < 30) 
+                                                <div class="product-label">
+                                                    <span>Mới</span>
                                                 </div>
-                                                 <a class="add-to-cart" onclick="AddCart({{$product->id}})" href="javascript:"><i
-                                                class="fa fa-shopping-cart"></i></a>
+                                                @endif
+                                                @if(!empty($product->sale))
+                                                <div class="discount-label">
+                                                    <span>Sale</span>
+                                                </div>
+                                                @endif
                                             </div>
+                                            <div class="product-content" style="height: 200px">
+                                                <div class="product-caption">
+                                                    <h6 class="product-name">
+                                                        <a href="{{route('shop.product',['slug'=>$product->slug,'id'=>$product->id])}}">{{$product->name}}</a>
+                                                    </h6>
+                                                    <div class="price-box">
+                                                        <span class="price-old"><del>{{ number_format($product->price,0,",",".") }} <span style="text-transform: lowercase">đ</del></span>
+                                                        <span class="price-regular">{{ number_format($product->sale,0,",",".") }} <span style="text-transform: lowercase">đ</span>
+                                                    </div>
+                                                    <a class="add-to-cart" onclick="AddCart({{$product->id}})" href="javascript:"><i
+                                                        class="fa fa-shopping-cart"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- product grid end -->
                                         </div>
+                                        @endforeach
+                                        <!-- product single item start -->
                                     </div>
-                                    <!-- product grid end -->
+                                    <!-- product item list wrapper end -->
+                                    <!-- start pagination area -->
+                                    @if($products->hasPages())
+                                    <div class="paginatoin-area shadow-bg text-center">
+                                        {{$products->render('vendor.pagination.pagination-page')}}
+                                    </div>
+                                    @endif
+                                    <!-- end pagination area -->
+                                    @if(empty($products))
+                                    <p>Không tìm thấy sản phẩm</p>
+                                    @endif
                                 </div>
-                                @endforeach
-                                <!-- product single item start -->
-                            </div>
-                            <!-- product item list wrapper end -->
-                            <!-- start pagination area -->
 
-                            <!-- end pagination area -->
+                            </div>
                         </div>
+                        <!-- shop main wrapper end -->
                     </div>
-                    <!-- shop main wrapper end -->
                 </div>
             </div>
-        </div>
-        <!-- page main wrapper end -->
+            <!-- page main wrapper end -->
 
- @endsection
- @section('js')
- <script>
-    $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    $(document).ready(function () {
-        $(".custom-control-input").click( function(){
-            var brand = [];
-            var price = [];
-            $.each($("input[name='brand_id[]']:checked"), function(){
-                brand.push($(this).val());
-            });
-            $.each($("input[name='price']:checked"), function(){
-                price.push($(this).val());
-            });
-                $.ajax({
-                    type: 'get',
-                    dataType: 'html',
-                    url: '{{url('danh-muc/'.$cate->slug.'/filter')}}', // url
-                    data: 'brand_id=' + brand + '&price='+price,
-                    success: function(response){ // Nếu thành công trả về
-                        $("#productData").html(response);
-                    }
-
-                });
-
-        });
-    });
-    </script>
- @endsection
+            @endsection

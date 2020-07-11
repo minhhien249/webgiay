@@ -62,7 +62,7 @@
                             <!-- Cart Calculation Area -->
                             <div class="cart-calculator-wrapper">
                                 <div class="cart-calculate-items">
-                                    <h6>Cart Totals</h6>
+                                    <h6>Tổng</h6>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <tr>
@@ -76,7 +76,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            <a href="{{route('shop.cart.checkout')}}" class="btn btn-sqr d-block">Checkout</a>
+                            <a href="{{route('shop.cart')}}" class="btn btn-sqr d-block">Thanh toán</a>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,6 @@
 @section('js')
 <script>
     function removeViewCart(id){
-        // console.log(id);
         $.ajax({
                 url:'/dat-hang/xoa-san-pham-trong-gio-hang/'+ id,
                 type:'GET',

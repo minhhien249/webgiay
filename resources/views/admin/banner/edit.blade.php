@@ -6,7 +6,8 @@
         <div aria-label="breadcrumb" class="float-right mt-1">
             <a class="btn btn-primary" href="{{route('admin.banner.index')}}">Sửa banner</a>
         </div>
-        <h4 class="mb-1 mt-0">Danh sách</h4>
+        <span><b> <a class="text-dark" href="{{route('admin.banner.index')}}">Danh sách</a> / <a class="text-dark" href="javascript:void(0)"> Sửa Banner</a></b></span>
+
     </div>
 </div>
     </section>

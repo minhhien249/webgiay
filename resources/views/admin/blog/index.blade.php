@@ -8,7 +8,7 @@
         <h4 class="mb-1 mt-0">Danh sách</h4>
     </div>
     <div class="col-md-12">
-         <form role="form" action="{{url('admin/searchBlog')}}" method="get"  enctype="multipart/form-data">   
+         <form role="form" action="{{url('admin/searchBlog')}}" method="get"  enctype="multipart/form-data">
          <div id="datatable-buttons_filter" class="dataTables_filter" sytle="position:relative">
             <div style="position: absolute;top: 6px;left: 18px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>

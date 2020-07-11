@@ -9,7 +9,7 @@ use App\Vendor;
 use App\ImageUpLoad;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductController extends ShopController
 {
     /**
      * Display a listing of the resource.
@@ -86,7 +86,11 @@ class ProductController extends Controller
         $product->vendor_id = $request->input('vendor_id');
         $product->sku = $request->input('sku');
         $product->position = $request->input('position');
-        $product->url = $request->input('url');
+          if(!empty($request->input('url')))
+        {
+            $product->url = $request->input('url');
+            $product->slug = $request->input('url');
+        }
 
         // Trạng thái
         if ($request->has('is_active')){//kiem tra is_active co ton tai khong?
@@ -100,11 +104,10 @@ class ProductController extends Controller
 
         $product->summary = $request->input('summary');
         $product->description = $request->input('description');
+
         $product->meta_title = $request->input('meta_title');
         $product->meta_description = $request->input('meta_description');
         $product->save();
-
-
 
         $product_id = $product->id;
         if ($request->hasFile('filename')) {
@@ -133,11 +136,12 @@ class ProductController extends Controller
     public function show($id)
     {
         // get data from db
-        $data = Product::findorFail($id);
-        $category_name = Category::where('id', $data->category_id)->first();
+        $product = Product::find($id);
+
+        $category_name = Category::where('id', $product->category_id)->first();
 
         return view('admin.product.show', [
-            'data' => $data,
+            'product' => $product,
             'category_name' => $category_name
         ]);
     }
@@ -205,7 +209,13 @@ class ProductController extends Controller
         $product->vendor_id = $request->input('vendor_id');
         $product->sku = $request->input('sku');
         $product->position = $request->input('position');
-        $product->url = $request->input('url');
+
+        if(!empty($request->input('url')))
+        {
+            $product->url = $request->input('url');
+            $product->slug = $request->input('url');
+        }
+
 
         // Trạng thái
         $product->is_active = 0;
@@ -223,6 +233,7 @@ class ProductController extends Controller
 
         $product->summary = $request->input('summary');
         $product->description = $request->input('description');
+
         $product->meta_title = $request->input('meta_title');
         $product->meta_description = $request->input('meta_description');
         $product->save();

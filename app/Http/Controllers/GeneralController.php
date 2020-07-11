@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Banner;
 use App\Blog;
 use App\Category;
-use App\Page;
 use App\Product;
 use App\User;
 use App\Setting;
+use App\OrderStatus;
+use App\Page;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
@@ -20,18 +21,18 @@ class GeneralController extends Controller
     public function __construct()
     {
         // 1. Lấy dữ liệu - Danh mục sản phẩm
-        $categories = Category::where('is_active' ,1)
-                                ->get();
+        $categories = Category::where('is_active' ,1)                    
+                                ->get();                     
 
         $this->categories = $categories;
-
+     
         // 2. Lấy dữ liệu - Banner
         $sliders = Banner::where('is_active' , 1)
                            ->where('type',1)
                            ->get();
         $banners = Banner::where('is_active' , 1)
                            ->where('type',2)
-                           ->get();
+                           ->get();                  
         //3 lấy dữ liệu blog
         $newblogs = Blog::where('is_active' , 1)
                                 ->limit(4)
@@ -41,23 +42,20 @@ class GeneralController extends Controller
         $products = Product::where('is_active' , 1)
                             ->limit(10)->orderBy('id', 'desc')
                             ->get();
-
+                            
         $hotProducts = Product::where('is_active' , 1)
                             ->where('is_hot', 1)
                             ->limit(10)
                             ->get();
+        $pages = Page::where('is_active', 1)->get();
+
+        $orderStatus = OrderStatus::all();
         // 4. cấu hình website
         $settings = Setting::first();
-
-
-        $pages = Page::where('is_active' ,1)
-                    ->limit(10)
-                    ->get();
-
         $now = Carbon::now(); // lấy thời gian hiện tại
-
+                     
         view()->share(['categories'=>$categories,'banners' =>$banners,'newblogs'=>$newblogs,
-            'products'=> $products, 'hotProducts' => $hotProducts,'settings' => $settings,'now'=> $now,'sliders'=>$sliders, 'pages' => $pages ]);
+            'products'=> $products, 'hotProducts' => $hotProducts,'settings' => $settings,'now'=> $now,'sliders'=>$sliders,'orderStatus'=>$orderStatus,'pages'=>$pages ]);
     }
     public function notfound()
     {

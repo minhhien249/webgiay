@@ -25,15 +25,26 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request , $blog_id)
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createBlog(Request $request , $id)
     {
         $this->validate($request, array(
             'name'   => 'required|max:255',
             'email'   => 'required|email|max:255',
             'comment'   => 'required|min:3|max:2000',
         ));
-        $blog = Blog::find($blog_id);
 
+        $blog = Blog::find($id);
         $comment = new Comment();
         $comment->name = $request->input('name');
         $comment->email = $request->input('email');
@@ -49,13 +60,6 @@ class CommentController extends Controller
             $blog->id
         ]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request , $product_id)
     {
 
@@ -81,7 +85,6 @@ class CommentController extends Controller
             $product->id
         ]);
     }
-
 
     /**
      * Display the specified resource.

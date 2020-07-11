@@ -74,6 +74,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('admin.page.index')}}">
+                        <i data-feather="grid"></i>
+                        <span>Page</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('admin.order.index')}}">
                         <i data-feather="grid"></i>
                         <span>Đơn Hàng</span>
@@ -93,11 +99,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.page.index')}}">
-                            <i data-feather="calendar"></i>
-                            <span> Page </span>
-                        </a>
-                    </li>
+                    <a href="{{ route('admin.AboutUs.index') }}">
+                        <i class=" uil-dropbox"></i>
+                        <span>Về Chúng Tôi</span>
+                    </a>
+                </li>
+
 
             </ul>
         </div>

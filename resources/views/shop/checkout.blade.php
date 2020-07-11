@@ -162,6 +162,8 @@
                                                 </div>
 
                                             </div>
+
+                                            <a href="/" class="btn btn-sqr mt-3">Về trang chủ</a>
                                         </div>
                                     </div>
                                 </div>

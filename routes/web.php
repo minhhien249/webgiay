@@ -46,27 +46,21 @@ Route::get('/dat-hang/huy-don-hang', 'CartController@destroy')->name('shop.cart.
 
 // Đặt hàng
 Route::get('/dat-hang', 'CartController@index')->name('shop.cart');
-
 // Thanh toán
 Route::get('/thanh-toan', 'CartController@checkout')->name('shop.cart.checkout');
-Route::post('/thanh-toan', 'CartController@postCheckout')->name('shop.cart.checkout');
 
-//tra cứu
-Route::get('/tk', 'ShopController@sorder')->name('shop.sorder');
-Route::get('/tra-cuu', 'ShopController@viewsearchorder')->name('shop.viewsearchorder');
-//contact
+Route::post('/thanh-toan', 'CartController@postCheckout')->name('shop.cart.checkout');
+// // Thanh toán
+
+//lien he
 Route::get('/lien-he', 'ContactController@create')->name('shop.contact');
 
 Route::post('/lien-he', 'ContactController@store')->name('shop.contact.store');
 
 
 //comments
-Route::post('/comment/{blog_id}','CommentController@create')->name('comments.create');
+Route::post('/comment/{blog_id}','CommentController@createBlog')->name('comments.create');
 Route::post('/comments/{product_id}','CommentController@store')->name('comments.store');
-
-//hotro
-Route::get('/chinh-sach', 'ShopController@page')->name('shop.chinh-sach');
-
 
 /////////////////////////////////////////
 // Đăng nhập
@@ -74,14 +68,16 @@ Route::get('/admin/login', 'AdminController@login')->name('admin.login');
 
 // Đăng xuất
 Route::get('/admin/logout', 'AdminController@logout')->name('admin.logout');
-
+//tra cứu
+Route::get('/tk', 'ShopController@sorder')->name('shop.sorder');
+Route::get('/tra-cuu', 'ShopController@viewsearchorder')->name('shop.viewsearchorder');
 Route::post('/admin/postLogin', 'AdminController@postLogin')->name('admin.postLogin');
 Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => ['CheckLogin']], function() {
 
 	Route::get('/', 'AdminController@index')->name('dashboard');
 
     // Router cho category
-	Route::resource('category', 'CategoryController');
+	   Route::resource('category', 'CategoryController');
 
     // Router cho Vendor
 	   Route::resource('vendor','VendorController');
@@ -90,9 +86,7 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => ['CheckLogin'
 	   Route::resource('image','ImageUploadController');
 
    	// Router cho Banner
-       Route::resource('banner','BannerController');
-
-       Route::resource('page', 'PageController');
+	   Route::resource('banner','BannerController');
 
    	// Router cho Brand
 	   Route::resource('brand','BrandController');
@@ -101,7 +95,7 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => ['CheckLogin'
    	// Router cho Product
 	   Route::resource('product','ProductController');
 	   Route::get('searchProduct','ProductController@searchProduct');
-
+	// Router cho User
 	   Route::resource('imageUpload','ImageUploadController');
 
    	// Router cho User
@@ -109,7 +103,8 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => ['CheckLogin'
 
    	// Router cho Blog
    		Route::resource('blog','BlogController');
-   		Route::get('searchBlog','BlogController@searchBlog');
+           Route::get('searchBlog','BlogController@searchBlog');
+
    	// Router cho Order
    		Route::resource('order','OrderController');
            Route::get('searchOrder','OrderController@searchOrder');
@@ -118,25 +113,20 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => ['CheckLogin'
    		Route::get('contact','ContactController@index')->name('contact.index');
    		Route::get('contact/{contact}/edit','ContactController@edit')->name('contact.edit');
    		Route::put('contact/{contact}','ContactController@update')->name('contact.update');
-   		Route::patch('contact/{contact}','ContactController@update')->name('contact.update');
+        Route::patch('contact/{contact}','ContactController@update')->name('contact.update');
+
    	 // Cau Hinh Website
         Route::resource('setting', 'SettingController');
+        Route::resource('page', 'PageController');
 
-
-
-
-
-   	// Router cho Image
-   	Route::post('delete', 'ImageUploadController@delete');
-
-   	//
+    // Router cho User
+        Route::resource('AboutUs','AboutUsController');
 
 });
-
+Route::get('listicon','ListIconController@index')->name('listicon');
 //
 Route::get('/danh-muc/{slug}', 'ShopController@getProductsByCategory')->name('shop.category');
 Route::get('/blogs-detalis/{slug}_{id}.html', 'ShopController@ViewBlog')->name('shop.blog');
 Route::get('/blogs-detalis', 'ShopController@BlogDetails')->name('shop.blog-detalis');
 Route::get('/danh-muc/{slug}/filter','ShopController@filter')->name('shop.filter');
-
 Route::get('/{slug}/{id}', 'ShopController@getpage')->name('shop.page');

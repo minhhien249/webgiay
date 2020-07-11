@@ -37,7 +37,7 @@
 
                                             <div id="item-cart">
                                                 <li class="mini-cart-wrap">
-                                                    <a href="#" class="minicart-btn minicart-btn-style_2">
+                                                    <a href="{{route('shop.cart.add-view-cart')}}" class="minicart-btn minicart-btn-style_2">
                                                         <i class="fa fa-shopping-cart"></i>
                                                         @if(Session::has("Cart") !=null)
                                                         <span id="total-quanty-show" class="notification">{{Session::get("Cart")->totalQuanty}}</span>
@@ -73,8 +73,8 @@
                                                             </li>
                                                         </ul>
                                                         <div class="minicart-button">
-                                                            <a href="{{route('shop.cart.add-view-cart')}}"><i class="fa fa-shopping-cart"></i> View Cart</a>
-                                                            <a href="{{route('shop.cart')}}"><i class="fa fa-share"></i> Checkout</a>
+                                                            <a href="{{route('shop.cart.add-view-cart')}}"><i class="fa fa-shopping-cart"></i>Giỏ hàng</a>
+                                                            <a href="{{route('shop.cart')}}"><i class="fa fa-share"></i> Thanh toán</a>
                                                         </div>
                                                     </div>
                                                     @else

@@ -42,7 +42,7 @@
                             
                             @if($blogs->hasPages())
                             <div class="paginatoin-area shadow-bg text-center">
-                                {{$blogs->links()}}
+                                {{$blogs->render('vendor.pagination.pagination-page')}}
                             </div>
 							@endif
                             <!-- end pagination area -->

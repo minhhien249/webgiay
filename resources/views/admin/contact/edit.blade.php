@@ -1,9 +1,7 @@
 @extends('admin.layouts.main')
 @section('content')
     <section class="content-header">
-        <h1>
-            <i class="fa fa-file-text-o" aria-hidden="true"></i> Chi Tiết Phản Hồi
-        </h1>
+        <span><b> <a class="text-dark" href="{{route('admin.contact.index')}}">Danh sách</a> / <a class="text-dark" href="javascript:void(0)"> Chi tiết liên hệ</a> </b></span>
     </section>
     <section class="content">
         <div class="row">

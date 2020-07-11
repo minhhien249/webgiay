@@ -7,7 +7,7 @@
             <div aria-label="breadcrumb" class="float-right mt-1">
                 <a class="btn btn-primary" href="{{route('admin.page.index')}}">Danh sách</a>
             </div>
-            <h4 class="mb-1 mt-0">Thêm mới </h4>
+            <span><b> <a class="text-dark" href="{{route('admin.page.index')}}">Danh sách</a> / <a class="text-dark" href="javascript:void(0)"> Thêm mới page</a> </b></span>
         </div>
     </div>
 </section>
@@ -24,8 +24,8 @@
                         <input type="text" class="form-control" id="title" name="title" placeholder="Nhập tên">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Slug</label>
-                        <input type="text" class="form-control" id="slug" name="slug" placeholder="Nhập ">
+                        <label for="exampleInputEmail1">Url(Liên kết tùy chỉnh)</label>
+                        <input type="text" class="form-control" id="slug" name="url" placeholder="Nhập liên kết tùy chỉnh">
                     </div>
                     <div class="form-group">
                         <label for="description">Mô tả</label>

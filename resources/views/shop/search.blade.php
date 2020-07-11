@@ -29,7 +29,6 @@
                     <!-- product item list wrapper start -->
                     <div class="shop-product-wrap grid-view row mbn-30">
                                 <!-- product single item start -->
-                                {{-- {{dd($products)}} --}}
                                 @foreach ($products as $product)
                                 <div class="col-md-3 col-sm-6" >
                                     <!-- product grid start -->
@@ -38,12 +37,16 @@
                                         <a href="{{route('shop.product',['slug'=>$product->slug,'id'=>$product->id])}}">
                                             <img src="{{asset($product->image)}}" alt="product thumb">
                                             </a>
+                                            @if($now->diffInDays($product->created_at) < 30) 
                                             <div class="product-label">
-                                                <span>new</span>
+                                                <span>Mới</span>
                                             </div>
+                                            @endif
+                                            @if(!empty($product->sale))
                                             <div class="discount-label">
-                                                <span>-10% Off</span>
+                                                <span>Sale</span>
                                             </div>
+                                            @endif
                                         </div>
                                         <div class="product-content " style="height: 200px">
                                             <div class="product-caption">
@@ -67,15 +70,11 @@
                     <!-- product item list wrapper end -->
 
                     <!-- start pagination area -->
-                    <div class="paginatoin-area text-center">
-                        <ul class="pagination-box">
-                            <li><a class="previous" href="#"><i class="fa fa-angle-left"></i></a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a class="next" href="#"><i class="fa fa-angle-right"></i></a></li>
-                        </ul>
-                    </div>
+                    @if($products->hasPages())
+                            <div class="paginatoin-area shadow-bg text-center">
+                                {{$products->render('vendor.pagination.pagination-page')}}
+                            </div>
+                    @endif
                     <!-- end pagination area -->
                 </div>
             </div>

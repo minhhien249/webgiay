@@ -10,13 +10,14 @@ use App\ImageUpLoad;
 use App\Brand;
 use App\Blog;
 use App\Comment;
-use App\Order;
-use App\Page;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\New_;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\Page;
+use App\Order;
+use App\AboutUs;
 
 class ShopController extends GeneralController
 {
@@ -50,9 +51,11 @@ class ShopController extends GeneralController
                                                         ->get();
             }
         }
+        $aboutus = AboutUs::all();
 
         return view('shop.home',[
-            'list' => $list
+            'list' => $list,
+            'aboutus'=> $aboutus
         ]);
     }
 
@@ -128,14 +131,13 @@ class ShopController extends GeneralController
                 $products = Product::where(['is_active' => 1])
                                         ->whereIn('category_id' , $ids)
                                         ->orderBy('id', 'desc')
-                                        ->get();
+                                        ->paginate(9);
                 $brandsFilter = DB::table('products')
                                 ->select('brand_id','brands.name')
                                 ->distinct()
                                 ->join('brands', 'brands.id', '=', 'products.brand_id')
                                 ->whereIn('category_id' , $ids)
                                 ->get();
-
 
                 //$sql = "SELECT * FROM products WHERE is_active = 1 AND (name like '%?%' OR slug like '%?%' OR summary like '%?%')";
                 //$results = DB::select($sql, [
@@ -182,9 +184,15 @@ class ShopController extends GeneralController
         public function filter(Request $request, $slug)
         {
 
-            $brand_id=[];
+
             $i=0;
             $priceCount = $request->input('price');
+            $brand_id = [];
+            if( $request->has('brand_id')){
+                $brand_id = $request->input('brand_id');
+            }
+
+
             // Lấy chi tiết thể loại
             $cate = Category::where(['slug' => $slug])->first();
             if ($cate) {
@@ -203,19 +211,20 @@ class ShopController extends GeneralController
                         }
                     }
                 }
-                     if(!empty($request->input('brand_id')) && !empty($request->input('price')) )
+                     if(!empty($brand_id) && !empty($priceCount) )
                     {
-                    $brand_id = explode(",",$request->input('brand_id'));
+
                         if ($priceCount == "9000000") // Nếu price == 9tr
                         {
                             $products = Product::where(['is_active' => 1])
                                         ->whereIn('category_id' , $ids)
                                         ->whereIn('brand_id', $brand_id)
                                         ->where('price', ">", $priceCount)
-                                         ->get();
+                                         ->paginate(9);
                         }else
                         {
-                            $price = explode("-",$request->input('price'));
+
+                            $price = explode("-",$priceCount);
                             $start = $price[0]; // Lấy giá phía bên trái
                             $end = $price[1]; // Lấy giá phía bên phải
                             // step 2 : lấy list sản phẩm theo thể loại
@@ -224,13 +233,13 @@ class ShopController extends GeneralController
                                         ->whereIn('brand_id', $brand_id)
                                         ->where('price', ">=", $start)
                                         ->where('price', "<=", $end)
-                                         ->get();
+                                         ->paginate(9);
 
                         }
 
 
                     }
-                    else if(!empty($request->input('price')) )
+                    else if(!empty($priceCount) )
                     {
 
                         if ($priceCount === "9000000") // Nếu price == 9tr
@@ -239,10 +248,12 @@ class ShopController extends GeneralController
                             $products = Product::where(['is_active' => 1])
                                         ->whereIn('category_id' , $ids)
                                         ->where('price', ">", $priceCount)
-                                         ->get();
+                                         ->paginate(9);
+                            $products->appends(['priced'=>$priceCount]);
                         }
                         else{
-                            $price = explode("-",$request->input('price'));
+
+                            $price = explode("-",$priceCount);
                             $start = $price[0]; // Lấy giá phía bên trái
                             $end = $price[1]; // Lấy giá phía bên phải
                             // step 2 : lấy list sản phẩm theo thể loại
@@ -250,30 +261,42 @@ class ShopController extends GeneralController
                                         ->whereIn('category_id' , $ids)
                                         ->where('price', ">=", $start)
                                         ->where('price', "<=", $end)
-                                         ->get();
+                                         ->paginate(9);
+                            $products->appends(['priced'=>$price]);
                         }
 
-
                     }
-                    else if (!empty($request->input('brand_id')) )
+                    else if (!empty($brand_id) )
                     {
-                    $brand_id = explode(",",$request->input('brand_id')); // lấy dữ liệu brand_id
-                // step 2 : lấy list sản phẩm theo thể loại
+
+                    $brand_id = $request->input('brand_id'); // lấy dữ liệu brand_id
+                    // step 2 : lấy list sản phẩm theo thể loại
                     $products = Product::where(['is_active' => 1])
                                         ->whereIn('category_id' , $ids)
                                         ->whereIn('brand_id', $brand_id)
-                                         ->get();
+                                         ->paginate(9);
+                    $products->appends(['brand_id'=>$brand_id]);
                     }
                     else {
                            $products = Product::where(['is_active' => 1])
                                         ->whereIn('category_id' , $ids)
                                         ->orderBy('id', 'desc')
-                                         ->get();
+                                         ->paginate(9);
                     }
+                    $brandsFilter = DB::table('products')
+                                ->select('brand_id','brands.name')
+                                ->distinct()
+                                ->join('brands', 'brands.id', '=', 'products.brand_id')
+                                ->whereIn('category_id' , $ids)
+                                ->get();
                     return view('shop.filterProduct',[
                     'category' => $category,
                     'products' => $products,
-                    'i'        => $i
+                    'i'        => $i,
+                    'cate'    => $cate,
+                    'brandsFilter' => $brandsFilter,
+                    'priceCount' => $priceCount,
+                    'brand_id' => $brand_id
                     ]);
 
             } else {
@@ -292,47 +315,42 @@ class ShopController extends GeneralController
                            ->paginate(2);
             return view('shop.blog-detalis',['blogs' => $blogs]);
         }
+        public function getpage($slug,$id)
+        {
 
+            $page = Page::find($id);
 
-    public function page()
-    {
-        $pages = Page::where('is_active', 1)
-                           ->latest()
-                           ->paginate(3);
-        return view('shop.layouts.footer',['pages' => $pages]);
-    }
-    public function getpage($slug,$id){
+            if (!$page) {
+               return $this->notfound();
+            }else
+            {
+                return view('shop.viewpage',[
+                    'page' =>$page
+                ]);
+            }
 
-    $page = Page::find($id);
+        }
+        public function sorder(){
+            return view('shop.sorder');
+        }
 
-    if (!$page) {
-     return $this->notfound();
-    }
-    return view('shop.viewpage',[
-            'page' => $page,
-    ]);
-    }
-    public function sorder(){
-        return view('shop.sorder');
-    }
-
-    public function viewsearchorder(Request $request){
-        $keyword = $request->input('tim-kiem');
-        $slug = str_slug($keyword);
-        $totalResult = 0;
-        $searchorder = [];
-        $searchorder = Order::where([
+        public function viewsearchorder(Request $request){
+            $keyword = $request->input('tim-kiem');
+            $slug = str_slug($keyword);
+            $totalResult = 0;
+            $searchorder = [];
+            $searchorder = Order::where([
                 ['code', 'like', '%' . $keyword . '%'],
             ])->orWhere([
                 ['email', 'like', '%' . $keyword . '%']
             ])->paginate(20);
-        $totalResult = $searchorder->total();
-        return view('shop.viewsearchorder', [
-            'searchorder' => $searchorder,
-            'totalResult' => $totalResult,
-            'keyword' => $keyword ? $keyword : ''
-        ]);
-    }
+            $totalResult = $searchorder->total();
+            return view('shop.viewsearchorder', [
+                'searchorder' => $searchorder,
+                'totalResult' => $totalResult,
+                'keyword' => $keyword ? $keyword : ''
+            ]);
+        }
 
 
 

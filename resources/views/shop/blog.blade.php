@@ -13,7 +13,8 @@
                         @foreach($newblogs as $blog)
                         <div class="recent-post-item">
                             <figure class="product-thumb">
-                                <a href="blog-details.html">
+                                <a href="{{route('shop.blog',
+                                        ['slug'=>$blog->slug,'id'=>$blog->id])}}">
                                     <img src="{{asset($blog->image)}}" alt="{{$blog->title}}">
                                 </a>
                             </figure>
@@ -40,29 +41,14 @@
                             <img src="{{asset($blogs->image)}}" alt="blog thumb">
                         </div>
                         <div class="blog-content w-100 mt-20 pl-0">
-
+                            
                             <h3 class="blog-title">{{ $blogs->title }}</h3>
                             <div class="blog-meta">
                                 <p>{{$blogs->updated_at}} | <a href="#">{{$blogs->url}}</a></p>
                             </div>
-
+                            
                             <div class="entry-summary">
                                 <p>{!! $blogs->description !!}</p>
-                                <div class="tag-line">
-                                    <h6>Tag :</h6>
-                                    <a href="#">Necklaces</a>,
-                                    <a href="#">Earrings</a>,
-                                    <a href="#">Jewellery</a>,
-                                </div>
-                                <div class="blog-share-link">
-                                    <h6>Share :</h6>
-                                    <div class="blog-social-icon">
-                                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                                        <a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a>
-                                        <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -75,13 +61,20 @@
                             <div class="total-reviews">
                                 <div class="review-box">
                                     @foreach($blog->comments as $comment)
-                                        <div class="post-author">
-                                            <Strong><span>{{$comment->name}}</span></Strong>
-                                        </div>
+                                        <div class="comment-id-{{$comment->id}} py-3" style="border-top: 1px solid #e5e5e5"
+                                            >
+                                            <div class="post-author d-flex align-items-center">
+                                                <div class="avatar mr-1">
+                                                    <Strong>{{ substr($comment->name,0,1)}}</Strong>
+                                                </div>
+                                            <Strong> {{$comment->name}} </Strong>
+                                            </div>
                                         <p>Bình luận: {{ $comment->comment }}</p>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
+
                             <form action="{{route('comments.create',[$blog->id])}}" method="POST" class="review-form">
                             @csrf
                                 <div class="form-group row">
@@ -101,7 +94,7 @@
                                 <div class="form-group row">
                                     <div class="col">
                                         <label for="comment" class="col-form-label"><span class="text-danger">*</span>
-                                            Your Review</label>
+                                            Bình luận</label>
                                         <textarea class="form-control" name="comment" required></textarea>
 
                                     </div>

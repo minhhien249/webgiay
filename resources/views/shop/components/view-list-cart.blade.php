@@ -72,7 +72,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <a href="{{route('shop.cart.checkout')}}" class="btn btn-sqr d-block">Checkout</a>
+                            <a href="{{route('shop.cart.checkout')}}" class="btn btn-sqr d-block">Thanh Toán</a>
                         </div>
                     </div>
                 </div>

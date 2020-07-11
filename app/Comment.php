@@ -13,8 +13,6 @@ class Comment extends Model
     }
     public function blog()
     {
-        return $this->belongsTo('App\Blog');
+    	return $this->belongsTo('App\Blog');
     }
-
-
 }

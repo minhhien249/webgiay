@@ -45,7 +45,7 @@
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
                         <ul class="pagination pagination-sm no-margin">
-                            
+
                         </ul>
                     </div>
                        </div>

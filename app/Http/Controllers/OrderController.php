@@ -108,23 +108,32 @@ class OrderController extends ShopController
     }
     public function searchOrder(Request $request)
     {
+        $status = $request->input('status');
         $keyword = $request->input('keyword');
         $slug = str_slug($keyword);
-            $data = [];
-            $data = Order::where([
-                ['name', 'like', '%' . $keyword . '%'],
-                ['is_active', '=', 1]
-            ])->orWhere([
-                ['slug', 'like', '%' . str_slug($keyword) . '%'],
-                ['is_active', '=', 1]
-            ])->orWhere([
-                ['summary', 'like', '%' . $keyword . '%'],
-                ['is_active', '=', 1]
-            ])->paginate(10);
-            $data->appends(['keyword'=>$keyword]);
+            if($status == 0)
+            {
+                $data = [];
+                $data = Order::where(
+                    'fullname', 'like', '%' . $keyword . '%'
+                )->paginate(10);
+                $data->appends(['keyword'=>$keyword]); // Phân trang theo keyword
+
+            }else
+            {
+                $data = [];
+                 $data = Order::where('fullname', 'like', '%' . $keyword . '%')
+                                ->Where('order_status_id', $status)
+                                ->paginate(10);
+                $data->appends(['keyword'=>$keyword,'status'=>$status]); // Phân trang theo keyword
+            }
+            
+
+
             return view('admin.order.searchOrder', [
                 'data' => $data,
-                'keyword' => $keyword ? $keyword : ''
+                'keyword' => $keyword ? $keyword : '',
+                'status'=>$status
             ]);
     }
 }

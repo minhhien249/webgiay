@@ -14,7 +14,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        $data = Page::all();
+        $data = Page::latest()
+                      ->paginate(10);
         return view('admin.page.index',[
             'data' => $data
         ]);
@@ -50,11 +51,12 @@ class PageController extends Controller
         //Khởi tạo Model và gán giá trị từ form cho những thuộc tính của đối tượng (cột trong CSDL)
         $page = new Page();
         $page->title = $request->input('title');
-        $page->slug = $request->input('slug');
-
-
-
-
+        $page->slug = str_slug($request->input('slug'));
+        if(!empty($request->input('url')))
+        {
+            $product->url = $request->input('url');
+            $product->slug = str_slug($request->input('url'));
+        }
 
         // Trạng thái
         if ($request->has('is_active')){//kiem tra is_active co ton tai khong?
@@ -91,7 +93,6 @@ class PageController extends Controller
     {
          // Sử dụng hàm findorFail tìm kiếm theo Id, nếu tìm thấy sẽ trả về object , nếu không trả về lỗi
          $page = Page::findorFail($id);
-
          return view('admin.page.edit', [
              'page' => $page
          ]);
@@ -115,7 +116,13 @@ class PageController extends Controller
         //Lấy đối tượng  và gán giá trị từ form cho những thuộc tính của đối tượng (cột trong CSDL)
         $page = Page::findorFail($id);
         $page->title = $request->input('title');
-        $page->slug = $request->input('slug');
+        if(!empty($request->input('slug') ) )
+        {
+             $page->slug = str_slug($request->input('slug'));
+        }else
+        {
+             $page->slug = str_slug($request->input('title'));
+        }
         // Trạng thái
         $page->is_active = 0;
         if ($request->has('is_active')) {//kiem tra is_active co ton tai khong?

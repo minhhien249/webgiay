@@ -51,7 +51,3 @@ function delete_image(id,Model) {
     }
 }
 
-$(function() {
-            // setup textarea sử dụng plugin CKeditor
-            CKEDITOR.replace( 'editor1' );
- })

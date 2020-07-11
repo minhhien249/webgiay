@@ -39,50 +39,22 @@
 <section class="service-policy mt-30">
     <div class="container">
         <div class="row row-10">
+            @foreach ($aboutus as $item)
             <div class="col-lg-3 col-sm-6">
+
                 <div class="policy-block text-center">
                     <div class="policy-icon">
-                        <i class="fa fa-heart-o"></i>
+                        <i class=" fa {{$item->icon}} "></i>
                     </div>
                     <div class="policy-text">
-                        <h4 class="policy-title">Giá trị lớn</h4>
-                        <p class="policy-desc" style="height: 30px">Cảm ơn bạn luôn tin tưởng chúng tôi.</p>
+                    <h4 class="policy-title">{{$item->title}}</h4>
+                    <p class="policy-desc">{!! $item->description !!}</p>
                     </div>
                 </div>
+
             </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="policy-block text-center">
-                    <div class="policy-icon">
-                        <i class="fa fa-truck"></i>
-                    </div>
-                    <div class="policy-text">
-                        <h4 class="policy-title">Giao hàng tận nơi</h4>
-                        <p class="policy-desc" style="height: 30px">Giao hàng đúng thời hạn.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="policy-block text-center">
-                    <div class="policy-icon">
-                        <i class="fa fa-credit-card"></i>
-                    </div>
-                    <div class="policy-text">
-                        <h4 class="policy-title">Thanh toán an toàn</h4>
-                        <p class="policy-desc" style="height: 30px">Bảo mật an toàn.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="policy-block text-center">
-                    <div class="policy-icon">
-                        <i class="fa fa-headphones"></i>
-                    </div>
-                    <div class="policy-text">
-                        <h4 class="policy-title">24/7 Hỗ Trợ</h4>
-                        <p class="policy-desc" style="height: 30px"> Hỗ trợ bất cứ lúc nào khi bạn cần.</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+
         </div>
     </div>
 </section>
@@ -113,13 +85,17 @@
                                 title="{{ $product->name }}">
                                 <img src="{{ asset($product->image)  }}" alt="product thumb" class="">
                             </a>
-
+                            @if($now->diffInDays($product->created_at) < 30)
                             <div class="product-label">
-                                <span>new</span>
+                                <span>Mới</span>
                             </div>
+                            @endif
+                            @if(!empty($product->sale))
                             <div class="discount-label">
-                                <span>-10% Off</span>
+                                <span>Sale</span>
                             </div>
+                            @endif
+
                         </div>
                         <div class="product-content ">
                             <div class="product-caption">
@@ -176,9 +152,18 @@
                                 title="{{ $product->name }}" title="{{ $product->name }}">
                                 <img src="{{ asset($product->image)  }}" alt="product thumb" class="">
                             </a>
-                            <div class="discount-label">
-                                <span>Hot</span>
+                            @if($now->diffInDays($product->created_at) < 30)
+                            <div class="product-label">
+                                <span>Mới</span>
                             </div>
+                            @endif
+
+
+                            @if(!empty($product->sale))
+                            <div class="discount-label">
+                                <span>Sale</span>
+                            </div>
+                            @endif
                         </div>
                         <div class="product-content ">
                             <div class="product-caption">
@@ -251,7 +236,7 @@
                                 <div class="blog-meta">
                                     <span><i class="fa fa-calendar"></i>{{$blog->created_at}}</span>
                                 </div>
-                                <p class="blog-desc">{!! strip_tags(Str::limit($blog->description,60)) !!}</p>
+                                <p class="blog-desc">{!! strip_tags(Str::limit($blog->description,100)) !!}</p>
                                 <a class="btn read-more" href="{{route('shop.blog',
                                 ['slug'=>$blog->slug,'id'=>$blog->id])}}">Đọc tiếp</a>
                             </div>

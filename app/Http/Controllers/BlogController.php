@@ -71,7 +71,11 @@ class BlogController extends Controller
         //user_id
         $blog->user_id = Auth::user()->id;
         // link bài viết
-        $blog->url = $request->input('url');
+        if(!empty($request->input('url')))
+        {
+            $product->url = $request->input('url');
+            $product->slug = str_slug($request->input('url'));
+        }
          // vị trí
         $blog->position = $request->input('position');
 
@@ -157,7 +161,13 @@ class BlogController extends Controller
         }
 
         $blog->user_id = Auth::user()->id;
-        $blog->url = $request->input('url');
+        
+        if(!empty($request->input('url')))
+        {
+            $product->url = $request->input('url');
+            $product->slug = str_slug($request->input('url'));
+        }
+
         $blog->position = $request->input('position');
 
         // Trạng thái
