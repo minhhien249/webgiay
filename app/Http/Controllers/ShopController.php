@@ -31,6 +31,7 @@ class ShopController extends GeneralController
     {
         $categories = $this->categories;
 
+
         // 3. Lấy danh sách phẩm theo thể loại
         $list = []; // chứa danh sách sản phẩm  theo thể loại
         foreach($categories as $key => $category) {
@@ -151,7 +152,8 @@ class ShopController extends GeneralController
                     'i'        => $i,
                     'cate'     => $cate
                 ]);
-            } else {
+            }
+             else {
                 return $this->notfound();
             }
         }
@@ -306,6 +308,9 @@ class ShopController extends GeneralController
         public function ViewBlog($slug, $id)
         {
         $blogs = Blog::findorFail($id);
+        if(!$blogs) {
+            return $this->notfound();
+        }
         return view('shop.blog',['blogs' => $blogs]);
         }
         public function BlogDetails()
@@ -313,6 +318,9 @@ class ShopController extends GeneralController
             $blogs = Blog::where('is_active', 1)
                            ->latest()
                            ->paginate(2);
+            if(!$blogs) {
+                            return $this->notfound();
+            }
             return view('shop.blog-detalis',['blogs' => $blogs]);
         }
         public function getpage($slug,$id)
@@ -333,7 +341,6 @@ class ShopController extends GeneralController
         public function sorder(){
             return view('shop.sorder');
         }
-
         public function viewsearchorder(Request $request){
             $keyword = $request->input('tim-kiem');
             $slug = str_slug($keyword);
