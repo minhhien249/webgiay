@@ -34,11 +34,13 @@
                                 </div>
                                 @endforeach
                             </div>
+                        
                             @if($blogs->hasPages())
                             <div class="paginatoin-area shadow-bg text-center">
                                 {{$blogs->render('vendor.pagination.pagination-page')}}
                             </div>
 							@endif
+                            <!-- end pagination area -->
                         </div>
                     </div>
                 </div>
