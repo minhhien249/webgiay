@@ -35,11 +35,7 @@
                                 </div>
                                 @endforeach
                                 
-                            </div>
-                            <!-- blog item wrapper end -->
-
-                            <!-- start pagination area -->
-                            
+                            </div>                
                             @if($blogs->hasPages())
                             <div class="paginatoin-area shadow-bg text-center">
                                 {{$blogs->render('vendor.pagination.pagination-page')}}
