@@ -31,15 +31,10 @@
                                 			['slug'=>$blog->slug,'id'=>$blog->id])}}">Đọc tiếp</a>
                                         </div>
                                     </div>
-                                    <!-- blog post item end -->
                                 </div>
                                 @endforeach
-                                
                             </div>
-                            <!-- blog item wrapper end -->
-
-                            <!-- start pagination area -->
-                            
+                        
                             @if($blogs->hasPages())
                             <div class="paginatoin-area shadow-bg text-center">
                                 {{$blogs->render('vendor.pagination.pagination-page')}}
