@@ -44,5 +44,4 @@
                 </div>
             </div>
         </div>
-        <!-- blog main wrapper end -->
 @endsection
